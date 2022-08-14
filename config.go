@@ -6,7 +6,8 @@ import (
 )
 
 type Config struct {
-	Key string `json:"key"` // Statuspage API key
+	Key    string `json:"key"`    // Statuspage API key
+	PageID string `json:"pageID"` // Statuspage page ID
 }
 
 func ParseConfig() (c *Config) {
@@ -27,6 +28,9 @@ func ParseConfig() (c *Config) {
 	// Validate config
 	if len(c.Key) == 0 {
 		panic("missing Statuspage API key in config.json")
+	}
+	if len(c.PageID) == 0 {
+		panic("missing Statuspage Page ID in config.json")
 	}
 
 	return c
