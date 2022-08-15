@@ -10,6 +10,6 @@ func main() {
 	api.SetKey(config.Key)
 	api.SetPageID(config.PageID)
 
-	// Map component IDs for monitoring
-	loadComponents()
+	// Begin monitor loop
+	monitor()
 }
