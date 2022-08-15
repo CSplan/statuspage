@@ -25,12 +25,8 @@ func monitor() {
 
 func checkComponent(c *api.Component, url string, expectedStatus int) {
 	r, err := client.Get(url)
-	if err != nil {
-		log.Printf("Error getting %s status: %s", c.Name, err)
-		return
-	}
 
-	if r.StatusCode != expectedStatus {
+	if err != nil || r.StatusCode != expectedStatus {
 		if len(incidents[c.Name]) == 0 && c.Status == "operational" { // Only create an incident if no current incident exists for the API component
 			incidentID, err := api.CreateIncident(fmt.Sprintf("%s outage", c.Name), c.ID)
 			if err != nil {
