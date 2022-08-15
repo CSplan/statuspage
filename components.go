@@ -23,12 +23,12 @@ func (c *Components) load() {
 	}
 
 	// Map component IDs based on name
-	for _, component := range list {
+	for i, component := range list {
 		switch component.Name {
 		case "API":
-			c.API = &component
+			c.API = &list[i]
 		case "Website":
-			c.Website = &component
+			c.Website = &list[i]
 		default:
 			log.Printf("Unrecognized component: '%s' (status %s)", component.Name, component.Status)
 		}

@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"log"
 	"os"
 )
@@ -9,20 +10,23 @@ import (
 // Incidents - Open, automatically reported realtime incidents
 type Incidents map[string]string
 
-var incidents Incidents
+var incidents = make(Incidents)
 
 func (i Incidents) filePath() string {
 	return "incidents.json"
 }
 
 func (i *Incidents) load() {
-	file, err := os.ReadFile(i.filePath())
-	if err != nil {
+	file, err := os.Open(i.filePath())
+	if errors.Is(err, os.ErrNotExist) {
+		i.save()
+		return
+	} else if err != nil {
 		log.Println("Failed to read incidents.json:", err)
 		return
 	}
 
-	json.Unmarshal(file, i)
+	json.NewDecoder(file).Decode(i)
 }
 
 func (i Incidents) save() {
