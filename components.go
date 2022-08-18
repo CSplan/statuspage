@@ -15,11 +15,6 @@ type Component struct {
 	successes []uint // successful poll timestamps (when an incident is active), incident resolved at 6 within 1 minute
 }
 
-func statefulComponent(c *api.Component) *Component {
-	return &Component{
-		Component: c}
-}
-
 // Components - API IDs of status components
 type Components struct {
 	API     *Component
