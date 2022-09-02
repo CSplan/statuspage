@@ -98,7 +98,11 @@ func filterTimestamps(l []uint) []uint {
 	for i, t := range l {
 		if now-t > 60 {
 			log.Println("Removing check older than 60 seconds")
-			l = append(l[:i], l[i+1:]...)
+			if i < len(l)-1 {
+				l = append(l[:i], l[i+1:]...)
+			} else {
+				l = l[:i]
+			}
 		}
 	}
 	return l
