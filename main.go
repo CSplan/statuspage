@@ -11,5 +11,5 @@ func main() {
 	api.SetPageID(config.PageID)
 
 	// Begin monitor loop
-	Monitor()
+	monitor()
 }
