@@ -21,7 +21,7 @@ func CreateIncident(title, componentID string) (incidentID string, e error) {
 		ComponentIDs: []string{
 			componentID},
 		Components: map[string]string{
-			componentID: "major_outage"}}
+			componentID: "partial_outage"}}
 	r, e := doRequest("POST", route("/pages/"+pageID+"/incidents"), map[string]Incident{
 		"incident": incident}, nil, 201)
 	if e != nil {
