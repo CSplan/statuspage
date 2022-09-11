@@ -5,7 +5,8 @@ import (
 	"time"
 )
 
-var client = &http.Client{}
+var client = &http.Client{
+	Timeout: 5 * time.Second}
 
 func Monitor() {
 	ticker := time.NewTicker(10 * time.Second) // Check status every 10 seconds
