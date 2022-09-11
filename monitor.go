@@ -13,9 +13,11 @@ func Monitor() {
 	for {
 		components.load()
 		incidents.load()
-		components.API.Check("https://api.csplan.co", 404)
-		components.Website.Check("https://csplan.co", 200)
-		incidents.save()
+		go func() {
+			components.API.Check("https://api.csplan.co", 404)
+			components.Website.Check("https://csplan.co", 200)
+			incidents.save()
+		}()
 		<-ticker.C
 	}
 }
