@@ -6,11 +6,12 @@ import (
 
 // Incident - A Statuspage incident creation request
 type Incident struct {
-	ID           string            `json:"id,omitempty"`
-	Name         string            `json:"name,omitempty"`
-	Status       string            `json:"status,omitempty"`
-	ComponentIDs []string          `json:"component_ids,omitempty"`
-	Components   map[string]string `json:"components,omitempty"` // Map of component status changes
+	ID             string            `json:"id,omitempty"`
+	Name           string            `json:"name,omitempty"`
+	Status         string            `json:"status,omitempty"`
+	ComponentIDs   []string          `json:"component_ids,omitempty"`
+	Components     map[string]string `json:"components,omitempty"`      // Map of component status changes
+	ImpactOverride string            `json:"impact_override,omitempty"` // override calculated impact of incident "none", "maintenance", "minor", "major", or "critical"
 }
 
 // CreateIncident - Create an incident
@@ -21,7 +22,8 @@ func CreateIncident(title, componentID string) (incidentID string, e error) {
 		ComponentIDs: []string{
 			componentID},
 		Components: map[string]string{
-			componentID: "partial_outage"}}
+			componentID: "partial_outage"},
+		ImpactOverride: "minor"}
 	r, e := doRequest("POST", route("/pages/"+pageID+"/incidents"), map[string]Incident{
 		"incident": incident}, nil, 201)
 	if e != nil {
